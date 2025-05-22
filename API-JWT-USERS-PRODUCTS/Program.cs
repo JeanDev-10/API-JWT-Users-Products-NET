@@ -18,6 +18,8 @@ builder.Services.AddDbContext<ApiJwtProductsUsersContext>(
     options => options.UseSqlServer(connectionString)
 );
 builder.Services.AddSingleton<Utils>();
+
+builder.Services.AddHttpContextAccessor(); // Para IHttpContextAccessor
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

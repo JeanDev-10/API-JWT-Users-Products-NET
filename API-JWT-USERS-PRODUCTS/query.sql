@@ -17,14 +17,4 @@ price decimal(10,2),
 user_id int foreign key references users(id),
 );
 GO
-INSERT INTO products (name, marca, price) VALUES
-('Laptop', 'Dell', 1200.00),
-('Smartphone', 'Samsung', 800.00),
-('Tablet', 'Apple', 950.00),
-('Monitor', 'LG'	, 300.00),
-('Teclado', 'Logitech', 50.00),
-('Mouse', 'HP', 35.00),
-('Impresora', 'Epson', 200.00),
-('Auriculares', 'Sony', 150.00),
-('C�mara', 'Canon', 600.00),
-('Disco Duro', 'Seagate', 100.00);
+

@@ -24,17 +24,25 @@ public partial class ApiJwtProductsUsersContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Configuración de la relación
+        modelBuilder.Entity<Product>()
+            .HasOne(p => p.User)
+            .WithMany(u => u.Products)
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Cascade); // Opcional: Eliminar productos si se elimina el usuario
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__productos__3213E83F883B0369");
 
-            entity.ToTable("productos");
+            entity.ToTable("products");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Marca)
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("marca");
+            entity.Property(e => e.UserId)
+                .HasColumnName("user_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false)
