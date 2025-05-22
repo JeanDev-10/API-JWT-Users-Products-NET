@@ -26,9 +26,9 @@ public partial class ApiJwtProductsUsersContext : DbContext
     {
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__products__3213E83F883B0369");
+            entity.HasKey(e => e.Id).HasName("PK__productos__3213E83F883B0369");
 
-            entity.ToTable("products");
+            entity.ToTable("productos");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Marca)

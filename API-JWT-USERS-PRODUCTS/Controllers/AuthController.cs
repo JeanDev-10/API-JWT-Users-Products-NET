@@ -35,6 +35,13 @@ namespace API_JWT_USERS_PRODUCTS.Controllers
                         .Select(e => e.ErrorMessage)
                 });
             }
+            bool emailExists = await _context.Users
+               .AnyAsync(u => u.Email.ToLower() == userDto.Email.ToLower().Trim());
+            if (emailExists)
+            {
+                ModelState.AddModelError("Email", "El email ya está registrado");
+                return BadRequest(ModelState);
+            }
             var user = new User
             {
                 Name = userDto.Name,
@@ -43,11 +50,21 @@ namespace API_JWT_USERS_PRODUCTS.Controllers
             };
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("Usuario registrado", new { message="Usuario registrado", data=user});
+            // Opción simple - devolver 201 con el objeto creado
+            return Created($"/api/users/{user.Id}", new
+            {
+                message = "Usuario registrado",
+                data = new
+                {
+                    id = user.Id,
+                    name = user.Name,
+                    email = user.Email,
+                }
+            });
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserDto userDto)
+        public async Task<IActionResult> Login([FromBody] LoginDto userDto)
         {
             if (!ModelState.IsValid)
             {

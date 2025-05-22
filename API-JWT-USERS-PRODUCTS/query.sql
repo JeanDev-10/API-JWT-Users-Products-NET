@@ -6,14 +6,15 @@ CREATE TABLE users(
 id int primary key identity,
 name varchar(50),
 email varchar(50),
-password varchar(100)
+password varchar(100),
 );
 GO
 CREATE TABLE products(
 id int primary key identity,
 name varchar(50),
 marca varchar(50),
-price decimal(10,2)
+price decimal(10,2),
+user_id int foreign key references users(id),
 );
 GO
 INSERT INTO products (name, marca, price) VALUES
@@ -25,5 +26,5 @@ INSERT INTO products (name, marca, price) VALUES
 ('Mouse', 'HP', 35.00),
 ('Impresora', 'Epson', 200.00),
 ('Auriculares', 'Sony', 150.00),
-('Cámara', 'Canon', 600.00),
+('Cï¿½mara', 'Canon', 600.00),
 ('Disco Duro', 'Seagate', 100.00);

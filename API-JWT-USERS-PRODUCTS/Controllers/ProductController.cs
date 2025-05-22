@@ -51,8 +51,15 @@ namespace API_JWT_USERS_PRODUCTS.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(product).State = EntityState.Modified;
+            var existingProduct = await _context.Products.FindAsync(id);
+            if (existingProduct == null)
+            {
+                return NotFound();
+            }
+            existingProduct.Name = product.Name;
+            existingProduct.Marca = product.Marca;
+            existingProduct.Price = product.Price;
+            _context.Entry(existingProduct).State = EntityState.Modified;
 
             try
             {
@@ -83,7 +90,7 @@ namespace API_JWT_USERS_PRODUCTS.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var newProduct= new Product
+            var newProduct = new Product
             {
                 Name = product.Name,
                 Marca = product.Marca,
@@ -91,7 +98,7 @@ namespace API_JWT_USERS_PRODUCTS.Controllers
             };
             _context.Products.Add(newProduct);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("Producto creado", new { id = newProduct.Id }, product);
+            return Created($"/api/Product/{newProduct.Id}", new { message = "producto creado", product = newProduct });
         }
 
 
