@@ -55,7 +55,7 @@ Abrir en navegador: http://localhost:5081/swagger
 
 
 ## 🔐 Endpoints Principales
-![Endpoints](/images/api%20endpoints.jpeg)
+![Endpoints](/images/api-endpoints.jpeg)
 ### Autenticación
 - `POST /api/auth/register` - Registro de usuario
 - `POST /api/auth/login` - Login (obtener JWT)
